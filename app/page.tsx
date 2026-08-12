@@ -40,7 +40,7 @@ function Barcode({ value }: { value: string }) {
 
 export default function Home() {
   const [name, setName] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Role.');
   const [stack, setStack] = useState('');
   const [photo, setPhoto] = useState<string | null>(null);
   const [error, setError] = useState('');
