@@ -205,8 +205,7 @@ export default function Home() {
                 </div>
 
                 <div className="stamp">✦ BUILD IN GOA ✦<br /><small>SHIP FROM PARADISE</small></div>
-                <div className="sideDate sideDateLeft">28—31 OCT 2026</div>
-                <div className="sideDate sideDateRight">GOA · INDIA</div>
+                
 
                 <div className="photoFrame" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={() => setDrag(null)} onPointerCancel={() => setDrag(null)}>
                   {photo ? <img src={photo} alt="Builder" style={{ transform: `translate(${offset.x}px,${offset.y}px) scale(${zoom})`, transformOrigin: 'center' }} /> : <div className="photoPlaceholder">YOUR<br />PHOTO<br />HERE</div>}
