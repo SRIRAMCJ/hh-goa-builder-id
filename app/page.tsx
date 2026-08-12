@@ -205,6 +205,7 @@ export default function Home() {
 
                 <div className="qrPanel">
                   <div className="qrCode"><QRCodeSVG value={siteUrl} size={92} bgColor="#f4ebd0" fgColor="#063b20" includeMargin /></div>
+                   <div className="qrText">SCAN / VISIT<br /><strong>BUILDER STUDIO</strong></div>
                  
                 </div>
 
