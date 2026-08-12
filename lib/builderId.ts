@@ -1,0 +1,2 @@
+export function createBuilderId(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';const part=()=>Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('');return `HHG26-${part()}-${part()}`}
+export function safeFilename(name:string){return (name.trim().replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')||'Builder').slice(0,60)}
