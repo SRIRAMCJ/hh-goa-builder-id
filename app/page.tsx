@@ -101,52 +101,59 @@ export default function Home() {
     const node = cardRef.current;
     if (document.fonts?.ready) await document.fonts.ready;
     const html2canvas = await import('html2canvas-pro');
+    const isMobile = window.matchMedia('(max-width: 560px)').matches;
 
-    // Keep the exact live-preview layout, but render it at a much higher
-    // raster resolution before downsampling to the required 1600x1000 PNG.
-    // html2canvas-pro preserves the live CSS object-fit behavior of the
-    // profile photo, so the person's displayed crop/size is not changed.
-    const rect = node.getBoundingClientRect();
-    const cssWidth = Math.max(1, rect.width);
-    const cssHeight = Math.max(1, rect.height);
-    const targetWidth = 1600;
-    const targetHeight = 1000;
-    const renderWidth = 2400;
-    const renderScale = Math.min(4, Math.max(1, renderWidth / cssWidth));
+    // Only mobile downloads need special handling. The live card remains
+    // untouched; during export we temporarily give it the same fixed 1600x1000
+    // geometry and typography used by the desktop-sized artwork.
+    if (isMobile) node.classList.add('exporting');
 
-    const rendered = await html2canvas.default(node, {
-      width: cssWidth,
-      height: cssHeight,
-      scale: renderScale,
-      useCORS: true,
-      backgroundColor: '#f4ebd0',
-      logging: false,
-      imageTimeout: 15000,
-      scrollX: 0,
-      scrollY: 0,
-      allowTaint: false,
-    });
+    try {
+      const rect = node.getBoundingClientRect();
+      const cssWidth = isMobile ? 1600 : Math.max(1, rect.width);
+      const cssHeight = isMobile ? 1000 : Math.max(1, rect.height);
+      const targetWidth = 1600;
+      const targetHeight = 1000;
+      const renderScale = isMobile ? 1.5 : Math.min(4, Math.max(1, 2400 / cssWidth));
 
-    const exportCanvas = document.createElement('canvas');
-    exportCanvas.width = targetWidth;
-    exportCanvas.height = targetHeight;
-    const ctx = exportCanvas.getContext('2d');
-    if (!ctx) return;
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(rendered, 0, 0, rendered.width, rendered.height, 0, 0, targetWidth, targetHeight);
+      const rendered = await html2canvas.default(node, {
+        width: cssWidth,
+        height: cssHeight,
+        scale: renderScale,
+        useCORS: true,
+        backgroundColor: '#f4ebd0',
+        logging: false,
+        imageTimeout: 15000,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: isMobile ? 1600 : window.innerWidth,
+        windowHeight: isMobile ? 1000 : window.innerHeight,
+        allowTaint: false,
+      });
 
-    exportCanvas.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `HH-Goa-Builder-ID-${safeFilename(name || 'Builder')}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, 'image/png');
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = targetWidth;
+      exportCanvas.height = targetHeight;
+      const ctx = exportCanvas.getContext('2d');
+      if (!ctx) return;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(rendered, 0, 0, rendered.width, rendered.height, 0, 0, targetWidth, targetHeight);
+
+      exportCanvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `HH-Goa-Builder-ID-${safeFilename(name || 'Builder')}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, 'image/png');
+    } finally {
+      if (isMobile) node.classList.remove('exporting');
+    }
   };
 
   const share = () => {
@@ -207,7 +214,6 @@ export default function Home() {
 
                 <div className="stamp">✦ BUILD IN GOA ✦<br /><small>SHIP FROM PARADISE</small></div>
                 
-
                 <div className="photoFrame" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={() => setDrag(null)} onPointerCancel={() => setDrag(null)}>
                   {photo ? <img src={photo} alt="Builder" style={{ transform: `translate(${offset.x}px,${offset.y}px) scale(${zoom})`, transformOrigin: 'center' }} /> : <div className="photoPlaceholder">YOUR<br />PHOTO<br />HERE</div>}
                 </div>
