@@ -102,32 +102,38 @@ export default function Home() {
     if (document.fonts?.ready) await document.fonts.ready;
     const html2canvas = await import('html2canvas');
 
-    // Capture exactly what is visible in the live preview at its current CSS
-    // dimensions, then resize that rendered bitmap to the required 1600x1000.
-    // This keeps the downloaded artwork visually identical to the website.
+    // Keep the exact live-preview layout, but render it at a much higher
+    // raster resolution before downsampling to the required 1600x1000 PNG.
+    // This avoids the blurry/pixelated text produced by a scale:1 capture.
     const rect = node.getBoundingClientRect();
-    const cssWidth = Math.max(1, Math.round(rect.width));
-    const cssHeight = Math.max(1, Math.round(rect.height));
+    const cssWidth = Math.max(1, rect.width);
+    const cssHeight = Math.max(1, rect.height);
+    const targetWidth = 1600;
+    const targetHeight = 1000;
+    const renderWidth = 2400;
+    const renderScale = Math.min(4, Math.max(1, renderWidth / cssWidth));
+
     const rendered = await html2canvas.default(node, {
       width: cssWidth,
       height: cssHeight,
-      scale: 1,
+      scale: renderScale,
       useCORS: true,
       backgroundColor: '#f4ebd0',
       logging: false,
       imageTimeout: 15000,
       scrollX: 0,
       scrollY: 0,
+      allowTaint: false,
     });
 
     const exportCanvas = document.createElement('canvas');
-    exportCanvas.width = 1600;
-    exportCanvas.height = 1000;
+    exportCanvas.width = targetWidth;
+    exportCanvas.height = targetHeight;
     const ctx = exportCanvas.getContext('2d');
     if (!ctx) return;
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(rendered, 0, 0, rendered.width, rendered.height, 0, 0, 1600, 1000);
+    ctx.drawImage(rendered, 0, 0, rendered.width, rendered.height, 0, 0, targetWidth, targetHeight);
 
     exportCanvas.toBlob((blob) => {
       if (!blob) return;
