@@ -246,7 +246,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="footerSite"><span>BUILD · CONNECT · SHIP · CELEBRATE</span><span>HH GOA 2026</span></footer>
+      <footer className="footerSite"><span>BUILD · CONNECT · SHIP · CELEBRATE</span><span>HH GOA 2026</span><span>Use desktop mode when accessing it on mobile</span></footer>
     </main>
   );
 }
