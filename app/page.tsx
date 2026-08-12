@@ -179,8 +179,8 @@ export default function Home() {
               </div>
 
               <div className="row">
-                <div className="field"><label className="label">NAME</label><input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Sriram V." /></div>
-                <div className="field"><label className="label">ROLE</label><input className="input" value={role} onChange={(e) => setRole(e.target.value)} placeholder="AI Engineer" /></div>
+                <div className="field"><label className="label">NAME</label><input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name." /></div>
+                <div className="field"><label className="label">ROLE</label><input className="input" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role" /></div>
               </div>
 
               <div className="field"><label className="label">STACK <span>(OPTIONAL)</span></label><input className="input" value={stack} onChange={(e) => setStack(e.target.value)} placeholder="Python · Qwen · Unity · MCP" /></div>
