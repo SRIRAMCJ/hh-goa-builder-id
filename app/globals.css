@@ -20,3 +20,26 @@
 .idcard .builderIdValue{font-size:clamp(10px,.94vw,13px)}
 .idcard .footer{font-size:clamp(9px,.82vw,12px);padding:3px 6px}
 .idcard .cardBottom{font-size:clamp(8px,.72vw,11px)}
+
+/* Mobile-only PNG export. The class is applied only during download, so the live desktop/mobile card is unchanged. */
+.idcard.exporting{width:1600px!important;height:1000px!important;min-width:1600px!important;min-height:1000px!important}
+.idcard.exporting .hh{font-size:34px}
+.idcard.exporting .date{font-size:14px}
+.idcard.exporting .stamp{font-size:12px}
+.idcard.exporting .sideDate{font-size:12px}
+.idcard.exporting .buildSticker{font-size:16px}
+.idcard.exporting .cardName{font-size:44px}
+.idcard.exporting .cardRole{font-size:15px}
+.idcard.exporting .cardStack{font-size:13px}
+.idcard.exporting .builderTitle{font-size:25px}
+.idcard.exporting .quote{font-size:13px}
+.idcard.exporting .moodBadge{font-size:12px}
+.idcard.exporting .vibeLine{font-size:12px}
+.idcard.exporting .qrText{font-size:13px}
+.idcard.exporting .qrCode svg{width:92px;height:92px}
+.idcard.exporting .miniFacts{font-size:11px}
+.idcard.exporting .metaLabel{font-size:12px}
+.idcard.exporting .builderIdValue{font-size:13px}
+.idcard.exporting .barcode{height:38px}
+.idcard.exporting .footer{font-size:12px}
+.idcard.exporting .cardBottom{font-size:11px}
