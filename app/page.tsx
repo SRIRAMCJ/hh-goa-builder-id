@@ -100,11 +100,12 @@ export default function Home() {
     if (!cardRef.current) return;
     const node = cardRef.current;
     if (document.fonts?.ready) await document.fonts.ready;
-    const html2canvas = await import('html2canvas');
+    const html2canvas = await import('html2canvas-pro');
 
     // Keep the exact live-preview layout, but render it at a much higher
     // raster resolution before downsampling to the required 1600x1000 PNG.
-    // This avoids the blurry/pixelated text produced by a scale:1 capture.
+    // html2canvas-pro preserves the live CSS object-fit behavior of the
+    // profile photo, so the person's displayed crop/size is not changed.
     const rect = node.getBoundingClientRect();
     const cssWidth = Math.max(1, rect.width);
     const cssHeight = Math.max(1, rect.height);
