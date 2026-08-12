@@ -101,18 +101,34 @@ export default function Home() {
     const node = cardRef.current;
     if (document.fonts?.ready) await document.fonts.ready;
     const html2canvas = await import('html2canvas');
-    const rect = node.getBoundingClientRect();
-    const targetWidth = 1600;
-    const scale = targetWidth / rect.width;
+
+    // Render the card at its native 16:10 export size instead of using the
+    // browser preview dimensions. This prevents html2canvas from stretching
+    // percentage/container-based typography during PNG generation.
+    const exportWidth = 1600;
+    const exportHeight = 1000;
     const canvas = await html2canvas.default(node, {
-      width: rect.width,
-      height: rect.height,
-      scale,
+      width: exportWidth,
+      height: exportHeight,
+      scale: 1,
       useCORS: true,
       backgroundColor: '#075c2c',
       logging: false,
       imageTimeout: 15000,
+      onclone: (clonedDocument) => {
+        const clonedNode = clonedDocument.querySelector('.idcard') as HTMLElement | null;
+        if (!clonedNode) return;
+        clonedNode.style.width = `${exportWidth}px`;
+        clonedNode.style.height = `${exportHeight}px`;
+        clonedNode.style.minWidth = `${exportWidth}px`;
+        clonedNode.style.minHeight = `${exportHeight}px`;
+        clonedNode.style.maxWidth = `${exportWidth}px`;
+        clonedNode.style.maxHeight = `${exportHeight}px`;
+        clonedNode.style.aspectRatio = '16 / 10';
+        clonedNode.style.transform = 'none';
+      },
     });
+
     canvas.toBlob((blob) => {
       if (!blob) return;
       const url = URL.createObjectURL(blob);
@@ -205,8 +221,7 @@ export default function Home() {
 
                 <div className="qrPanel">
                   <div className="qrCode"><QRCodeSVG value={siteUrl} size={92} bgColor="#f4ebd0" fgColor="#063b20" includeMargin /></div>
-                   <div className="qrText">SCAN / VISIT<br /><strong>BUILDER STUDIO</strong></div>
-                 
+                  <div className="qrText">SCAN / VISIT<br /><strong>BUILDER STUDIO</strong></div>
                 </div>
 
                 <div className="miniFacts"><span>✦ BEACH BAG</span><span>✦ BUILD MODE</span><span>✦ GOA ENERGY</span></div>
