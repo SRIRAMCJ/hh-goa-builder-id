@@ -216,7 +216,6 @@ export default function Home() {
                   <Barcode value={id} />
                 </div>
 
-                <div className="builderId">BUILDER ID · {id}</div>
                 <div className="footer">#FrameInGoa</div>
                 <div className="cardBottom">✦ BUILD · CONNECT · SHIP · CELEBRATE ✦</div>
               </div>
