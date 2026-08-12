@@ -102,34 +102,34 @@ export default function Home() {
     if (document.fonts?.ready) await document.fonts.ready;
     const html2canvas = await import('html2canvas');
 
-    // Render the card at its native 16:10 export size instead of using the
-    // browser preview dimensions. This prevents html2canvas from stretching
-    // percentage/container-based typography during PNG generation.
-    const exportWidth = 1600;
-    const exportHeight = 1000;
-    const canvas = await html2canvas.default(node, {
-      width: exportWidth,
-      height: exportHeight,
+    // Capture exactly what is visible in the live preview at its current CSS
+    // dimensions, then resize that rendered bitmap to the required 1600x1000.
+    // This keeps the downloaded artwork visually identical to the website.
+    const rect = node.getBoundingClientRect();
+    const cssWidth = Math.max(1, Math.round(rect.width));
+    const cssHeight = Math.max(1, Math.round(rect.height));
+    const rendered = await html2canvas.default(node, {
+      width: cssWidth,
+      height: cssHeight,
       scale: 1,
       useCORS: true,
-      backgroundColor: '#075c2c',
+      backgroundColor: '#f4ebd0',
       logging: false,
       imageTimeout: 15000,
-      onclone: (clonedDocument) => {
-        const clonedNode = clonedDocument.querySelector('.idcard') as HTMLElement | null;
-        if (!clonedNode) return;
-        clonedNode.style.width = `${exportWidth}px`;
-        clonedNode.style.height = `${exportHeight}px`;
-        clonedNode.style.minWidth = `${exportWidth}px`;
-        clonedNode.style.minHeight = `${exportHeight}px`;
-        clonedNode.style.maxWidth = `${exportWidth}px`;
-        clonedNode.style.maxHeight = `${exportHeight}px`;
-        clonedNode.style.aspectRatio = '16 / 10';
-        clonedNode.style.transform = 'none';
-      },
+      scrollX: 0,
+      scrollY: 0,
     });
 
-    canvas.toBlob((blob) => {
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = 1600;
+    exportCanvas.height = 1000;
+    const ctx = exportCanvas.getContext('2d');
+    if (!ctx) return;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(rendered, 0, 0, rendered.width, rendered.height, 0, 0, 1600, 1000);
+
+    exportCanvas.toBlob((blob) => {
       if (!blob) return;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
