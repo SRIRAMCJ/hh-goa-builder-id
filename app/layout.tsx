@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import ExperienceLauncher from './components/ExperienceLauncher';
 
 export const metadata: Metadata = {
   title: 'HH Goa 2026 — Builder ID',
@@ -8,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}<ExperienceLauncher /></body></html>;
+  return <html lang="en"><body>{children}</body></html>;
 }
