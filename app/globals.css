@@ -4,24 +4,44 @@
 .cardShell{min-width:0;min-height:0}
 .idcard{container-type:inline-size;container-name:builder-card}
 .idcard:after{font-size:22cqw}
-.hh{font-size:clamp(16px,2.4cqw,34px)}
-.date{font-size:clamp(7px,1cqw,12px)}
-.stamp{font-size:clamp(6px,.8cqw,10px)}
-.sideDate{font-size:clamp(7px,.72cqw,10px)}
-.buildSticker{font-size:clamp(8px,1.1cqw,15px)}
+.hh{font-size:clamp(18px,2.525cqw,36px)}
+.date{font-size:clamp(9px,1.125cqw,14px)}
+.stamp{font-size:clamp(8px,.925cqw,12px)}
+.sideDate{font-size:clamp(9px,.845cqw,12px)}
+.buildSticker{font-size:clamp(10px,1.225cqw,17px)}
 .cardInfo{height:40%;max-height:40%;overflow:hidden}
-.cardName{font-size:clamp(18px,3.1cqw,46px)}
-.cardRole{font-size:clamp(8px,1.05cqw,14px);margin-top:7px}
-.cardStack{font-size:clamp(7px,.9cqw,11px);margin-top:8px;padding:5px 8px;line-height:1.1}
-.builderTitle{font-size:clamp(13px,1.65cqw,25px);margin-top:10px;max-width:100%;max-height:2.15em;overflow:hidden;line-height:.92}
-.quote{top:68%;max-width:38%;font-size:clamp(7px,.78cqw,11px)}
-.moodBadge{top:76%;font-size:clamp(6px,.72cqw,10px)}
-.vibeLine{top:76%;font-size:clamp(6px,.72cqw,10px)}
+.cardName{font-size:clamp(20px,3.225cqw,48px)}
+.cardRole{font-size:clamp(10px,1.175cqw,16px);margin-top:7px}
+.cardStack{font-size:clamp(9px,1.025cqw,13px);margin-top:8px;padding:5px 8px;line-height:1.1}
+.builderTitle{font-size:clamp(15px,1.775cqw,27px);margin-top:10px;max-width:100%;max-height:2.15em;overflow:hidden;line-height:.92}
+.quote{top:68%;max-width:38%;font-size:clamp(9px,.905cqw,13px)}
+.moodBadge{top:76%;font-size:clamp(8px,.845cqw,12px)}
+.vibeLine{top:76%;font-size:clamp(8px,.845cqw,12px)}
 .qrCode svg{width:clamp(42px,6cqw,92px);height:clamp(42px,6cqw,92px)}
-.qrText{font-size:clamp(7px,.78cqw,11px)}
-.miniFacts{font-size:clamp(5px,.58cqw,9px)}
-.metaLabel{font-size:clamp(6px,.68cqw,10px)}
-.builderIdValue{font-size:clamp(7px,.85cqw,11px)}
+.qrText{font-size:clamp(9px,.905cqw,13px)}
+.miniFacts{font-size:clamp(7px,.705cqw,11px)}
+.metaLabel{font-size:clamp(8px,.805cqw,12px)}
+.builderIdValue{font-size:clamp(9px,.975cqw,13px)}
 .barcode{height:clamp(20px,3cqw,38px)}
-.footer{font-size:clamp(6px,.68cqw,10px)}
-.cardBottom{font-size:clamp(5px,.58cqw,9px)}
+.footer{font-size:clamp(8px,.805cqw,12px)}
+.cardBottom{font-size:clamp(7px,.705cqw,11px)}
+
+/* Requested +2px card typography */
+.idcard .hh{font-size:clamp(20px,2.65cqw,38px)}
+.idcard .date{font-size:clamp(11px,1.25cqw,16px)}
+.idcard .stamp{font-size:clamp(10px,1.05cqw,14px)}
+.idcard .sideDate{font-size:clamp(11px,.97cqw,14px)}
+.idcard .buildSticker{font-size:clamp(12px,1.35cqw,19px)}
+.idcard .cardName{font-size:clamp(22px,3.35cqw,50px)}
+.idcard .cardRole{font-size:clamp(12px,1.30cqw,18px)}
+.idcard .cardStack{font-size:clamp(11px,1.15cqw,15px)}
+.idcard .builderTitle{font-size:clamp(17px,1.90cqw,29px)}
+.idcard .quote{font-size:clamp(11px,1.03cqw,15px)}
+.idcard .moodBadge{font-size:clamp(10px,.97cqw,14px)}
+.idcard .vibeLine{font-size:clamp(10px,.97cqw,14px)}
+.idcard .qrText{font-size:clamp(11px,1.03cqw,15px)}
+.idcard .miniFacts{font-size:clamp(9px,.83cqw,13px)}
+.idcard .metaLabel{font-size:clamp(10px,.93cqw,14px)}
+.idcard .builderIdValue{font-size:clamp(11px,1.10cqw,15px)}
+.idcard .footer{font-size:clamp(10px,.93cqw,14px)}
+.idcard .cardBottom{font-size:clamp(9px,.83cqw,13px)}
